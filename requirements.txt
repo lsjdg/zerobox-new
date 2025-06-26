@@ -1,0 +1,13 @@
+fastapi
+numpy
+opencv-python-headless
+pip
+pydantic
+pydantic_core
+torch
+torchvision
+urllib3
+uvicorn
+pillow
+requests
+gdown
