@@ -5,6 +5,10 @@ import tempfile
 import torch
 from pathlib import Path
 
+PERSIST_ROOT = Path("/home/data")
+TENSOR_DIR = PERSIST_ROOT / "tensors"
+TENSOR_DIR.mkdir(parents=True, exist_ok=True)
+
 
 def get_img(url):
     response = requests.get(url)
@@ -20,10 +24,9 @@ def get_img(url):
 
 
 def save_tensor(img_id, tensor):
-    path = Path(f"data/tensors/{img_id}")
-    torch.save(tensor.cpu(), f"{path}.pt")
+    torch.save(tensor.cpu(), TENSOR_DIR / f"{img_id}.pt")
+    print(f"tensor saved for {img_id}")
 
 
 def load_tensor(filename):
-    tensor = torch.load(f"data/tensors/{filename}")
-    return tensor
+    return torch.load(TENSOR_DIR / filename, map_location="cpu")
